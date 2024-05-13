@@ -3,9 +3,7 @@ from pynput import keyboard, mouse
 import datetime
 import pyautogui
 import numpy as np
-
 recording = 0
-    
 log_var = ""
 output_file = 'screen_record.mp4'
 fps = 30.0
@@ -17,7 +15,6 @@ def on_release(key):
             log_var += "r " + str(key.char) + "\n"
         else:
             log_var += "r " + str(key) + "\n"
-    
 def on_press(key):
     global log_var
     global recording
@@ -34,11 +31,6 @@ def on_press(key):
             log_var += str(key.char) + "\n"
         else:
             log_var += str(key) + "\n"
-#def on_move(x, y):
-#    global log_var
-#    if recording == 1:
-#        log_var += str(x) + ", " + str(y) + "\n"
-
 def record_screen():
     global log_var
     global recording
@@ -56,20 +48,11 @@ def record_screen():
             log_var += str(frame_number) + "\n"
     out.release()
     cv2.destroyAllWindows()
-
 keyboard_listener = keyboard.Listener(on_press=on_press, on_release=on_release)
 keyboard_listener.start()
-
-#mouse_listener = mouse.Listener(on_move=on_move)
-#mouse_listener.start()
-
 record_screen()
-
 keyboard_listener.stop()
-#mouse_listener.stop()
-
 text_file = open("sample.txt", "w")
 text_file.write(log_var)
 text_file.close()
-
 print("Recording finished. Video file saved as", output_file)
